@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GameContent/Rogue.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameContent/Terrain/Bigtree1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Terrain/tileable_grass.png" type="Texture" id=3]
+[ext_resource path="res://GameContent/GameObjects/Coin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameContent/GameObjects/Demon1.tscn" type="PackedScene" id=5]
+
+[node name="World" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 160, 88 )
+scale = Vector2( 0.240421, 0.215205 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 125, 89, 1331, 855 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="KinematicBody2D2" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 64, 96 )
+
+[node name="KinematicBody2D3" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 176, 48 )
+
+[node name="KinematicBody2D4" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 144, 56 )
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 112, 56 )
+
+[node name="StaticBody2D" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 16, 96 )
+
+[node name="StaticBody2D2" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 112, 96 )
+
+[node name="StaticBody2D3" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 16, 48 )
+
+[node name="KinematicBody2D" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 176, 96 )
+
+[node name="YSort2" type="YSort" parent="YSort"]
+
+[node name="Coin" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 176, 72 )
+
+[node name="Coin2" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 184, 72 )
+
+[node name="Coin3" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 168, 88 )
