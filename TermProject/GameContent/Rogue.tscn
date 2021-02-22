@@ -9,7 +9,7 @@
 radius = 14.5934
 height = 38.773
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Attack"
 length = 0.5
 step = 0.05
@@ -82,11 +82,13 @@ tracks/0/keys = {
 "values": [ 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=5]
 radius = 2.31771
 height = 11.7748
 
-[node name="Player" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 scale = Vector2( 0.8, 0.8 )
 script = ExtResource( 1 )
 
@@ -105,7 +107,7 @@ shape = SubResource( 1 )
 
 [node name="RogueAnimation" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
-anims/Attack = SubResource( 5 )
+anims/Attack = SubResource( 2 )
 anims/Idle = SubResource( 3 )
 anims/Walk = SubResource( 4 )
 
@@ -116,13 +118,12 @@ __meta__ = {
 }
 
 [node name="AttackHitbox" parent="Position2D" instance=ExtResource( 3 )]
-scale = Vector2( 1, 1 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="Position2D/AttackHitbox" index="0"]
 position = Vector2( 12.6675, 0.278409 )
 rotation = 1.5708
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 disabled = true
 
 [editable path="Position2D/AttackHitbox"]

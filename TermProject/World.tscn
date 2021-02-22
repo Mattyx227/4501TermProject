@@ -20,17 +20,14 @@ __meta__ = {
 
 [node name="YSort" type="YSort" parent="."]
 
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 98.3885, 54.3392 )
+
 [node name="KinematicBody2D2" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 64, 96 )
+position = Vector2( 183.02, 13.6185 )
 
 [node name="KinematicBody2D3" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 176, 48 )
-
-[node name="KinematicBody2D4" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 144, 56 )
-
-[node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 112, 56 )
+position = Vector2( 48.4953, 89.8492 )
 
 [node name="StaticBody2D" parent="YSort" instance=ExtResource( 2 )]
 position = Vector2( 16, 96 )
@@ -42,7 +39,7 @@ position = Vector2( 112, 96 )
 position = Vector2( 16, 48 )
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 5 )]
-position = Vector2( 176, 96 )
+position = Vector2( 155.074, 91.0176 )
 
 [node name="YSort2" type="YSort" parent="YSort"]
 

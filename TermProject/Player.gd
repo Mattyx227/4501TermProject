@@ -15,6 +15,7 @@ onready var animationRouge = $RogueAnimation
 onready var attackHitBox = $Position2D/AttackHitbox
 
 func _ready():
+	randomize()
 	attackHitBox.velocity_vector = Vector2.LEFT
 	animationRouge.set_speed_scale(1)
 
