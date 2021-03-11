@@ -1,17 +1,17 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://player/rogue spritesheet calciumtrice.png" type="Texture" id=2]
 [ext_resource path="res://GameContent/QuickScenes/Hitbox.tscn" type="PackedScene" id=3]
 [ext_resource path="res://GameContent/GameObjects/earlySwordHitBox.gd" type="Script" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 14.5934
-height = 38.773
+radius = 10.77
+height = 20.7006
 
 [sub_resource type="Animation" id=2]
 resource_name = "Attack"
 length = 0.5
+loop = true
 step = 0.05
 tracks/0/type = "value"
 tracks/0/path = NodePath("Rogue:frame")
@@ -54,6 +54,7 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id=3]
 resource_name = "Idle"
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Rogue:frame")
 tracks/0/interp = 1
@@ -86,22 +87,27 @@ tracks/0/keys = {
 radius = 2.31771
 height = 11.7748
 
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 7.00731
+height = 10.751
+
 [node name="Player" type="KinematicBody2D" groups=[
 "Player",
 ]]
 scale = Vector2( 0.8, 0.8 )
-script = ExtResource( 1 )
+collision_layer = 7
+collision_mask = 7
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2( 1, 1 )
 
 [node name="Rogue" type="Sprite" parent="."]
-position = Vector2( 0, -9 )
 texture = ExtResource( 2 )
 vframes = 10
 hframes = 10
 frame = 31
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2( -0.295625, -3.73772 )
 scale = Vector2( 0.5, 0.3 )
 shape = SubResource( 1 )
 
@@ -112,18 +118,27 @@ anims/Idle = SubResource( 3 )
 anims/Walk = SubResource( 4 )
 
 [node name="Position2D" type="Position2D" parent="."]
-position = Vector2( 0, -8 )
 __meta__ = {
 "_gizmo_extents_": 6.0
 }
 
 [node name="AttackHitbox" parent="Position2D" instance=ExtResource( 3 )]
+collision_mask = 2147483649
 script = ExtResource( 4 )
 
 [node name="CollisionShape2D" parent="Position2D/AttackHitbox" index="0"]
-position = Vector2( 12.6675, 0.278409 )
+position = Vector2( 12.6675, 0 )
 rotation = 1.5708
 shape = SubResource( 5 )
 disabled = true
+
+[node name="PlayerHitBox" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
+
+[node name="HitBoxPoly" type="CollisionShape2D" parent="PlayerHitBox"]
+position = Vector2( 0.147467, 1.4748 )
+shape = SubResource( 6 )
+[connection signal="area_entered" from="PlayerHitBox" to="." method="_on_PlayerHitBox_area_entered"]
 
 [editable path="Position2D/AttackHitbox"]

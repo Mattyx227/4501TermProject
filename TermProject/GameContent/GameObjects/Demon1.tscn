@@ -1,17 +1,20 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://GameContent/QuickScenes/Hitbox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://frames/big_demon_idle_anim_f3.png" type="Texture" id=2]
 [ext_resource path="res://frames/big_demon_idle_anim_f2.png" type="Texture" id=3]
 [ext_resource path="res://frames/big_demon_idle_anim_f0.png" type="Texture" id=4]
 [ext_resource path="res://frames/big_demon_idle_anim_f1.png" type="Texture" id=5]
-[ext_resource path="res://GameContent/GameObjects/Demon1.gd" type="Script" id=6]
+[ext_resource path="res://GameContent/GameObjects/Demon.gd" type="Script" id=6]
 [ext_resource path="res://GameContent/GameObjects/Enemy/EnemtyAI.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Monster/big_demon_run_anim_f0.png" type="Texture" id=8]
 [ext_resource path="res://Monster/big_demon_run_anim_f1.png" type="Texture" id=9]
 [ext_resource path="res://Monster/big_demon_run_anim_f2.png" type="Texture" id=10]
 [ext_resource path="res://Monster/big_demon_run_anim_f3.png" type="Texture" id=11]
 [ext_resource path="res://GameContent/GameObjects/Enemy/WanderAI.tscn" type="PackedScene" id=12]
+[ext_resource path="res://GameContent/QuickScenes/Hitbox.gd" type="Script" id=13]
+[ext_resource path="res://UI/HealthBar/EnemyHealthBar.tscn" type="PackedScene" id=14]
+[ext_resource path="res://UI/HealthBar/EnemyHealthBar.gd" type="Script" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -20,9 +23,14 @@ animations = [ {
 "name": "Idle",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 10 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "Attack",
+"speed": 10.0
+}, {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
 "loop": true,
-"name": "Attack",
+"name": "Walk",
 "speed": 5.0
 } ]
 
@@ -35,8 +43,10 @@ radius = 3.99458
 height = 0.0
 
 [sub_resource type="CapsuleShape2D" id=4]
-radius = 2.16978
-height = 9.19337
+radius = 5.95928
+height = 8.79101
+
+[sub_resource type="CircleShape2D" id=5]
 
 [node name="KinematicBody2D" type="KinematicBody2D" groups=[
 "Enemy",
@@ -46,27 +56,27 @@ script = ExtResource( 6 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
-animation = "Attack"
-frame = 1
 playing = true
 
 [node name="Hitbox" parent="." instance=ExtResource( 1 )]
-visible = false
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2( -0.222977, 1.99336 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2.59463 )
 shape = SubResource( 3 )
 
 [node name="DemonHitBox" parent="." instance=ExtResource( 1 )]
-position = Vector2( 4, 0.83 )
+position = Vector2( 4, 0 )
+collision_layer = 2147483653
+collision_mask = 5
+script = ExtResource( 13 )
 
 [node name="CollisionShape2D" parent="DemonHitBox" index="0"]
-rotation = 1.5708
+position = Vector2( -3.67766, -0.420448 )
+rotation = 3.14159
 shape = SubResource( 4 )
+disabled = true
 
 [node name="Detection" parent="." instance=ExtResource( 7 )]
 collision_layer = 1
@@ -76,8 +86,36 @@ collision_mask = 1
 modulate = Color( 1, 1, 1, 0.239216 )
 
 [node name="WanderAI" parent="." instance=ExtResource( 12 )]
+
+[node name="Timer" parent="WanderAI" index="0"]
+autostart = false
+
+[node name="Range" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Range"]
+shape = SubResource( 5 )
+
+[node name="UI" parent="." instance=ExtResource( 14 )]
+rect_scale = Vector2( 0.3, 0.3 )
+script = ExtResource( 15 )
+
+[node name="HPease" parent="UI" index="0"]
+margin_left = -34.6483
+margin_top = -32.7755
+margin_right = 30.3517
+margin_bottom = -23.7755
+
+[node name="HP" parent="UI" index="1"]
+margin_left = -34.6483
+margin_top = -32.7755
+margin_right = 30.3517
+margin_bottom = -23.7755
 [connection signal="lootDrop" from="." to="." method="_on_KinematicBody2D_lootDrop"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_Hitbox_area_entered"]
+[connection signal="area_entered" from="DemonHitBox" to="." method="_on_DemonHitBox_area_entered"]
+[connection signal="area_exited" from="DemonHitBox" to="." method="_on_DemonHitBox_area_exited"]
+[connection signal="area_entered" from="Range" to="." method="_on_Range_area_entered"]
+[connection signal="area_exited" from="Range" to="." method="_on_Range_area_exited"]
 
 [editable path="Hitbox"]
 
@@ -86,3 +124,5 @@ modulate = Color( 1, 1, 1, 0.239216 )
 [editable path="Detection"]
 
 [editable path="WanderAI"]
+
+[editable path="UI"]

@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://GameContent/Rogue.tscn" type="PackedScene" id=1]
+[ext_resource path="res://GameContent/Terrain/Bigtree1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Terrain/tileable_grass.png" type="Texture" id=3]
+[ext_resource path="res://GameContent/GameObjects/Coin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://GameContent/GameObjects/Demon1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameContent/Terrain/Bush1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GameContent/Terrain/Houses.tscn" type="PackedScene" id=7]
+
+[node name="World" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 190.119, 67.3306 )
+scale = Vector2( 0.467604, 0.417087 )
+texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 125, 89, 1331, 855 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="YSort" type="YSort" parent="."]
+
+[node name="Player" parent="YSort" instance=ExtResource( 1 )]
+position = Vector2( 98.3885, 54.3392 )
+
+[node name="PlayerCamera" type="Camera2D" parent="YSort/Player"]
+current = true
+smoothing_enabled = true
+
+[node name="TileMap" parent="YSort" instance=ExtResource( 7 )]
+position = Vector2( -134.574, -13.2574 )
+scale = Vector2( 0.5, 0.5 )
+cell_size = Vector2( 16, 16 )
+tile_data = PoolIntArray( -262092, 3, 0, 655412, 4, 0, 2687241, 3, 0, 3604746, 4, 0 )
+
+[node name="KinematicBody2D3" parent="YSort" instance=ExtResource( 5 )]
+position = Vector2( 65.9208, 188.211 )
+
+[node name="KinematicBody2D" parent="YSort" instance=ExtResource( 5 )]
+
+[node name="StaticBody2D" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 16, 96 )
+
+[node name="StaticBody2D2" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 112, 96 )
+
+[node name="StaticBody2D3" parent="YSort" instance=ExtResource( 2 )]
+position = Vector2( 16, 48 )
+
+[node name="YSort2" type="YSort" parent="YSort"]
+
+[node name="Coin" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 176, 72 )
+
+[node name="Coin2" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 184, 72 )
+
+[node name="Coin3" parent="YSort/YSort2" instance=ExtResource( 4 )]
+position = Vector2( 168, 88 )
+
+[node name="StaticBody2D" parent="." instance=ExtResource( 6 )]
+position = Vector2( 68.2169, 42.5866 )
+
+[node name="StaticBody2D2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 144.326, 46.7488 )

@@ -19,3 +19,4 @@ func start_timer(duration):
 	
 func _on_Timer_timeout():
 	update_tar_Pos()
+	

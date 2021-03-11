@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://GameContent/GameObjects/Enemy/BaseStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+statName = "Demon"
+health = 10
+mana = 0
+max_health = 10
+max_mana = 0
+attack = 8
+defense = 1
+speed = 0
