@@ -504,14 +504,16 @@ height = 4.54341
 
 [node name="World" type="Node2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 194.619, 65.8306 )
-scale = Vector2( 0.467604, 0.417087 )
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -531.0
+margin_top = -271.0
+margin_right = 5688.0
+margin_bottom = 2996.0
+rect_scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
-region_enabled = true
-region_rect = Rect2( 125, 89, 1331, 855 )
+stretch_mode = 2
 __meta__ = {
-"_edit_lock_": true
+"_edit_use_anchors_": false
 }
 
 [node name="YSort" type="YSort" parent="."]
@@ -524,10 +526,6 @@ position = Vector2( -43.7217, -97.2847 )
 script = ExtResource( 13 )
 starting_stats = ExtResource( 14 )
 
-[node name="PlayerCamera" type="Camera2D" parent="YSort/Player"]
-current = true
-smoothing_enabled = true
-
 [node name="StaticBody2D10" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 49.0815, 50.9692 )
 
@@ -537,7 +535,7 @@ scale = Vector2( 0.5, 0.5 )
 cell_size = Vector2( 16, 16 )
 tile_data = PoolIntArray( -983029, 13, 0, -262096, 3, 0, 655408, 4, 0, 786488, 6, 0, 2687241, 3, 0, 3604746, 4, 0 )
 
-[node name="KinematicBody2D3" parent="YSort" instance=ExtResource( 10 )]
+[node name="Skeleton" parent="YSort" instance=ExtResource( 10 )]
 position = Vector2( 122.402, 156.953 )
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 5 )]
@@ -591,26 +589,7 @@ position = Vector2( 168, 88 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Control" parent="CanvasLayer" instance=ExtResource( 12 )]
-margin_left = 16.064
-margin_top = 3.46478
-margin_right = -237.936
-margin_bottom = -165.535
 script = ExtResource( 15 )
-
-[node name="HPease" parent="CanvasLayer/Control" index="0"]
-margin_left = 4.76758
-margin_top = 7.41624
-margin_right = 69.7676
-margin_bottom = 16.4162
-
-[node name="HP" parent="CanvasLayer/Control" index="1"]
-margin_left = 5.29733
-margin_top = 6.88651
-margin_right = 70.2973
-margin_bottom = 15.8865
-
-[node name="Icon" parent="CanvasLayer/Control" index="3"]
-position = Vector2( -4.34171, 11.1095 )
 
 [node name="ToFightArea1" type="Area2D" parent="."]
 collision_layer = 7
@@ -620,7 +599,8 @@ script = ExtResource( 16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToFightArea1"]
 position = Vector2( -39.1708, -119.872 )
 shape = SubResource( 31 )
-[connection signal="health_changed" from="YSort/Player" to="CanvasLayer/Control" method="_on_Player_health_changed"]
 [connection signal="area_entered" from="ToFightArea1" to="ToFightArea1" method="_on_ToFightArea1_area_entered"]
+
+[editable path="YSort/Player"]
 
 [editable path="CanvasLayer/Control"]

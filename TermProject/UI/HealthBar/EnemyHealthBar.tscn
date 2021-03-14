@@ -7,10 +7,9 @@
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.772087
-margin_top = 0.397514
-margin_right = 0.772095
-margin_bottom = 0.397522
+margin_left = 1.0
+margin_right = -254.0
+margin_bottom = -166.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -25,7 +24,6 @@ texture_progress = ExtResource( 2 )
 tint_under = Color( 0.207843, 0.054902, 0.945098, 1 )
 tint_progress = Color( 1, 0.164706, 0, 1 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -36,7 +34,6 @@ value = 50.0
 texture_over = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
 __meta__ = {
-"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 

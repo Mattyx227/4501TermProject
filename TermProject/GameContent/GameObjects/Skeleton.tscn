@@ -231,11 +231,11 @@ height = 9.55631
 radius = 4.23978
 height = 11.7836
 
-[sub_resource type="CapsuleShape2D" id=49]
+[sub_resource type="CapsuleShape2D" id=48]
 radius = 17.1454
 height = 0.0
 
-[sub_resource type="CapsuleShape2D" id=48]
+[sub_resource type="CapsuleShape2D" id=49]
 radius = 16.3176
 height = 17.0752
 
@@ -286,7 +286,7 @@ collision_mask = 2147483649
 [node name="Range" type="CollisionShape2D" parent="AttackRange"]
 position = Vector2( 0.668182, 1.33635 )
 rotation = 1.5708
-shape = SubResource( 49 )
+shape = SubResource( 48 )
 
 [node name="SkeletonHitBox" parent="." instance=ExtResource( 3 )]
 collision_layer = 5
@@ -296,7 +296,7 @@ script = ExtResource( 8 )
 [node name="CollisionShape2D" parent="SkeletonHitBox" index="0"]
 position = Vector2( 11.5546, 1.5 )
 rotation = 3.14159
-shape = SubResource( 48 )
+shape = SubResource( 49 )
 disabled = true
 
 [node name="UI" parent="." instance=ExtResource( 9 )]

@@ -8,10 +8,10 @@
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.772087
-margin_top = 0.397514
-margin_right = 0.772095
-margin_bottom = 0.397522
+margin_left = 18.0907
+margin_top = 5.12722
+margin_right = -236.909
+margin_bottom = -163.873
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,6 +38,21 @@ texture_over = ExtResource( 1 )
 texture_progress = ExtResource( 2 )
 __meta__ = {
 "_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HPtext" type="Label" parent="HP"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 11.6388
+margin_top = 2.9619
+margin_right = 76.6388
+margin_bottom = 16.9619
+rect_scale = Vector2( 0.35, 0.3 )
+text = "dsds"
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
