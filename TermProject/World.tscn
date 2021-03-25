@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://GameContent/Rogue.tscn" type="PackedScene" id=1]
 [ext_resource path="res://GameContent/Terrain/Bigtree1.tscn" type="PackedScene" id=2]
@@ -11,10 +11,7 @@
 [ext_resource path="res://Tileset 13 Sheet.png" type="Texture" id=9]
 [ext_resource path="res://GameContent/GameObjects/Skeleton.tscn" type="PackedScene" id=10]
 [ext_resource path="res://GameContent/Terrain/chest.tscn" type="PackedScene" id=11]
-[ext_resource path="res://UI/HealthBar/PlayerHealthBar.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Player.gd" type="Script" id=13]
-[ext_resource path="res://GameContent/GameObjects/Enemy/Stats/PlayerStats.tres" type="Resource" id=14]
-[ext_resource path="res://UI/HealthBar/PlayerHealthBar.gd" type="Script" id=15]
+[ext_resource path="res://UI/HealthBar/PlayerGUI.tscn" type="PackedScene" id=13]
 [ext_resource path="res://ToFightArea1.gd" type="Script" id=16]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -503,16 +500,21 @@ radius = 7.34294
 height = 4.54341
 
 [node name="World" type="Node2D"]
+pause_mode = 2
+process_priority = 1
+z_index = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
-margin_left = -531.0
-margin_top = -271.0
-margin_right = 5688.0
-margin_bottom = 2996.0
+margin_left = -529.586
+margin_top = -269.941
+margin_right = 5689.41
+margin_bottom = 2997.06
 rect_scale = Vector2( 0.2, 0.2 )
+mouse_filter = 2
 texture = ExtResource( 3 )
 stretch_mode = 2
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -522,74 +524,94 @@ __meta__ = {
 }
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( -43.7217, -97.2847 )
-script = ExtResource( 13 )
-starting_stats = ExtResource( 14 )
+position = Vector2( -166.811, -88.4712 )
 
-[node name="StaticBody2D10" parent="YSort" instance=ExtResource( 11 )]
+[node name="Control" parent="YSort/Player/UI" index="0"]
+mouse_filter = 2
+
+[node name="Background" parent="YSort/Player/UI/Control" index="0"]
+z_index = -1
+
+[node name="Camera2D" parent="YSort/Player" index="1"]
+z_index = -2
+
+[node name="Rogue" parent="YSort/Player" index="2"]
+frame = 31
+
+[node name="Chest" parent="YSort" instance=ExtResource( 11 )]
 position = Vector2( 49.0815, 50.9692 )
 
-[node name="TileMap" parent="YSort" instance=ExtResource( 7 )]
-position = Vector2( -134.574, -13.2574 )
-scale = Vector2( 0.5, 0.5 )
-cell_size = Vector2( 16, 16 )
-tile_data = PoolIntArray( -983029, 13, 0, -262096, 3, 0, 655408, 4, 0, 786488, 6, 0, 2687241, 3, 0, 3604746, 4, 0 )
-
 [node name="Skeleton" parent="YSort" instance=ExtResource( 10 )]
-position = Vector2( 122.402, 156.953 )
+position = Vector2( -136.344, 120.443 )
+
+[node name="Skeleton2" parent="YSort" instance=ExtResource( 10 )]
+position = Vector2( -218.452, 59.5239 )
+
+[node name="Skeleton3" parent="YSort" instance=ExtResource( 10 )]
+position = Vector2( -78.6033, 40.9833 )
 
 [node name="KinematicBody2D" parent="YSort" instance=ExtResource( 5 )]
 position = Vector2( 153.43, 69.6157 )
 
-[node name="StaticBody2D" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( -38.3368, 35.9439 )
-
-[node name="StaticBody2D2" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 220.841, 146.74 )
-
-[node name="StaticBody2D4" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 9.41672, 89.203 )
-
-[node name="StaticBody2D8" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 260.367, 101.884 )
-
-[node name="StaticBody2D9" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 334.45, 101.217 )
-
-[node name="StaticBody2D5" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 203.126, 88.5976 )
-
-[node name="StaticBody2D6" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 9.24446, 8.60812 )
-
-[node name="StaticBody2D7" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 243.916, 3.31081 )
-
-[node name="StaticBody2D3" parent="YSort" instance=ExtResource( 2 )]
-position = Vector2( 163.04, 146.742 )
-
-[node name="TileMap2" parent="YSort" instance=ExtResource( 8 )]
-tile_set = SubResource( 30 )
-tile_data = PoolIntArray( 65537, 2, 0, 65539, 2, 0, 65540, 2, 0, 65541, 2, 0, 65542, 2, 0, 65543, 2, 0, 65544, 4, 0, 65545, 2, 0, 65546, 2, 0, 65547, 2, 0, 65548, 2, 0, 65549, 2, 0, 65550, 3, 0, 131073, 1, 0, 131074, 13, 0, 131075, 13, 0, 131076, 13, 0, 131077, 13, 0, 131078, 13, 0, 131079, 13, 0, 131080, 13, 0, 131081, 13, 0, 131082, 13, 0, 131083, 13, 0, 131084, 13, 0, 131085, 13, 0, 196609, 5, 0, 196622, 6, 0, 262145, 5, 0, 262158, 6, 0, 327681, 5, 0, 327694, 6, 0, 393217, 5, 0, 393230, 6, 0, 458753, 5, 0, 458766, 9, 0, 524289, 7, 0, 524291, 0, 65537, 524292, 0, 65537, 524293, 0, 65537, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65537, 524298, 0, 65537, 524301, 12, 0, 589834, 6, 0, 589837, 5, 0 )
-
-[node name="YSort2" type="YSort" parent="YSort"]
+[node name="StaticObjects" type="YSort" parent="YSort"]
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Coin" parent="YSort/YSort2" instance=ExtResource( 4 )]
+[node name="Coin" parent="YSort/StaticObjects" instance=ExtResource( 4 )]
 position = Vector2( 176, 72 )
 
-[node name="Coin2" parent="YSort/YSort2" instance=ExtResource( 4 )]
+[node name="Coin2" parent="YSort/StaticObjects" instance=ExtResource( 4 )]
 position = Vector2( 184, 72 )
 
-[node name="Coin3" parent="YSort/YSort2" instance=ExtResource( 4 )]
+[node name="Coin3" parent="YSort/StaticObjects" instance=ExtResource( 4 )]
 position = Vector2( 168, 88 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="StaticBody2D" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 4.52302, 53.8022 )
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource( 12 )]
-script = ExtResource( 15 )
+[node name="StaticBody2D11" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 5.71357, 129.204 )
+
+[node name="StaticBody2D12" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 245.808, 131.585 )
+
+[node name="StaticBody2D13" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 74.3687, 151.824 )
+
+[node name="StaticBody2D2" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 220.841, 146.74 )
+
+[node name="StaticBody2D4" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 9.41672, 89.203 )
+
+[node name="StaticBody2D8" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 260.367, 101.884 )
+
+[node name="StaticBody2D9" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 334.45, 101.217 )
+
+[node name="StaticBody2D5" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 203.126, 88.5976 )
+
+[node name="StaticBody2D6" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 9.24446, 8.60812 )
+
+[node name="StaticBody2D7" parent="YSort/StaticObjects" instance=ExtResource( 6 )]
+position = Vector2( 243.916, 3.31081 )
+
+[node name="StaticBody2D3" parent="YSort/StaticObjects" instance=ExtResource( 2 )]
+position = Vector2( 161.979, 151.692 )
+
+[node name="TileMap2" parent="YSort/StaticObjects" instance=ExtResource( 8 )]
+tile_set = SubResource( 30 )
+tile_data = PoolIntArray( 65537, 2, 0, 65539, 2, 0, 65540, 2, 0, 65541, 2, 0, 65542, 2, 0, 65543, 2, 0, 65544, 4, 0, 65545, 2, 0, 65546, 2, 0, 65547, 2, 0, 65548, 2, 0, 65549, 2, 0, 65550, 3, 0, 131073, 1, 0, 131074, 13, 0, 131075, 13, 0, 131076, 13, 0, 131077, 13, 0, 131078, 13, 0, 131079, 13, 0, 131080, 13, 0, 131081, 13, 0, 131082, 13, 0, 131083, 13, 0, 131084, 13, 0, 131085, 13, 0, 196609, 5, 0, 196622, 6, 0, 262145, 5, 0, 262158, 6, 0, 327681, 5, 0, 327694, 6, 0, 393217, 5, 0, 393230, 6, 0, 458753, 5, 0, 458766, 9, 0, 524289, 7, 0, 524291, 0, 65537, 524292, 0, 65537, 524293, 0, 65537, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65537, 524298, 0, 65537, 524301, 12, 0, 589834, 6, 0, 589837, 5, 0 )
+
+[node name="TileMap" parent="YSort/StaticObjects" instance=ExtResource( 7 )]
+position = Vector2( -134.574, -13.2574 )
+scale = Vector2( 0.5, 0.5 )
+cell_size = Vector2( 16, 16 )
+tile_data = PoolIntArray( -983029, 13, 0, -262096, 3, 0, 655408, 4, 0, 786488, 6, 0, 2687241, 3, 0, 3604746, 4, 0 )
 
 [node name="ToFightArea1" type="Area2D" parent="."]
 collision_layer = 7
@@ -599,8 +621,19 @@ script = ExtResource( 16 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ToFightArea1"]
 position = Vector2( -39.1708, -119.872 )
 shape = SubResource( 31 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer" instance=ExtResource( 13 )]
+[connection signal="mouse_entered" from="YSort/Player" to="YSort/Player" method="_on_Player_mouse_entered"]
+[connection signal="input_event" from="YSort/Player/PlayerHitBox" to="YSort/Player" method="_on_PlayerHitBox_input_event"]
+[connection signal="increaseEXP" from="YSort/Skeleton" to="YSort/Player" method="_on_Skeleton_increaseEXP"]
+[connection signal="increaseEXP" from="YSort/Skeleton2" to="YSort/Player" method="_on_Skeleton_increaseEXP"]
+[connection signal="increaseEXP" from="YSort/Skeleton3" to="YSort/Player" method="_on_Skeleton_increaseEXP"]
 [connection signal="area_entered" from="ToFightArea1" to="ToFightArea1" method="_on_ToFightArea1_area_entered"]
 
 [editable path="YSort/Player"]
 
-[editable path="CanvasLayer/Control"]
+[editable path="YSort/Player/UI/Control"]
+
+[editable path="YSort/Player/UI/Control/Strength"]

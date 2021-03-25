@@ -12,16 +12,22 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "BaseStats",
 "language": "GDScript",
-"path": "res://GameContent/GameObjects/Enemy/BaseStats.gd"
+"path": "res://GameContent/GameObjects/Enemy/Stats/BaseStats.gd"
 }, {
 "base": "Node",
 "class": "EnemyStats",
 "language": "GDScript",
 "path": "res://GameContent/GameObjects/Enemy/Job.gd"
+}, {
+"base": "Resource",
+"class": "PlayerStats",
+"language": "GDScript",
+"path": "res://GameContent/GameObjects/Enemy/Stats/PlayerStats.gd"
 } ]
 _global_script_class_icons={
 "BaseStats": "",
-"EnemyStats": ""
+"EnemyStats": "",
+"PlayerStats": ""
 }
 
 [application]
@@ -84,6 +90,16 @@ Test={
 Interact={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"unicode":0,"echo":false,"script":null)
+ ]
+}
+UI={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":85,"unicode":0,"echo":false,"script":null)
+ ]
+}
+LeftClick={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://GameContent/GameObjects/Enemy/Stats/PlayerStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+statName = "Player"
+health = 35
+mana = 10
+max_health = 0
+max_mana = 10
+attack = 5
+defense = 5
+speed = 10
+strength = 5
+tenacity = 5
+magic = 5
+swiftness = 5
+maxEXP = 20
+currentEXP = 0
+level = 1
+coin = 0
+skillpoint = 0

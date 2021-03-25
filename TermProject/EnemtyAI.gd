@@ -7,7 +7,11 @@ func see_player():
 
 func _on_Detection_body_entered(body):
 	if body.is_in_group("Player"):
-		player = body
+		if body.alive == true:
+			player = body
+		else:
+			player = null
+	
 
 
 func _on_Detection_body_exited(body):

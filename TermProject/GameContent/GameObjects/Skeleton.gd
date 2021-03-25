@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 signal lootDrop
+signal increaseEXP
 
 const MAX_SPEED = 50
 const ACCELERATION = 100
@@ -12,25 +13,28 @@ enum State{
 	CHASE,
 	ATTACK,
 	HIT,
+	DEAD
 }
 
-
-
-
 export onready var starting_stats : Resource	= load("res://GameContent/GameObjects/Enemy/Stats/SkletonStats.tres")
+var coin = preload("res://GameContent/GameObjects/Coin.tscn")
+var coin_instance = coin.instance()
 
+onready var player = $"../Player"
 onready var playerdetection = $Detection
 onready var sprite = $AnimatedSprite
 onready var wanderAI = $WanderAI
 onready var hurtbox = $SkeletonHitBox
 onready var hpBar = $UI
-var coin = preload("res://GameContent/GameObjects/Coin.tscn")
-var coin_instance = coin.instance()
+
+
 
 var current_state = State.WANDER
 var inRange
 var knockBack = Vector2.ZERO
 var velocity = Vector2.ZERO
+
+
 onready var health : int
 onready var mana : int
 onready var max_health : int 
@@ -38,6 +42,7 @@ onready var max_mana : int
 onready var attack : int
 onready var defense : int
 onready var speed : int
+onready var EXP : int
 
 func _ready():
 	print(hurtbox.damage)
@@ -49,20 +54,20 @@ func _ready():
 func _process(delta):
 	#print(attRange.damage)
 	#print(stats.stats)
-	if health <= 0:
-		death()
 		
 	match current_state:
 		State.IDLE:
-			seek_player()
+			if (player.alive == true):
+				seek_player()
 			sprite.play("Idle")
 			velocity = Vector2.ZERO
 			if wanderAI.get_time_left() == 0:
 				current_state = pick_state([State.IDLE, State.WANDER])
 				wanderAI.start_timer(rand_range(1, 2))
-				
+			
 		State.WANDER:
-			seek_player()
+			if (player.alive == true):
+				seek_player()
 			sprite.play("Walk")
 			
 			if wanderAI.get_time_left() == 0:
@@ -76,7 +81,7 @@ func _process(delta):
 			if global_position.distance_to(wanderAI.target_Pos) <= 4:
 				current_state = pick_state([State.IDLE, State.WANDER])
 				wanderAI.start_timer(rand_range(1, 2))
-				
+			
 		State.ATTACK:
 			sprite.play("Attack")
 			
@@ -93,7 +98,8 @@ func _process(delta):
 			
 			
 		State.CHASE:
-			seek_player()
+			if (player.alive == true):
+				seek_player()
 			sprite.play("Walk")
 			sprite.flip_h = velocity.x < 0
 			$SkeletonHitBox/CollisionShape2D.position = $SkeletonHitBox/CollisionShape2D.position * Vector2(-1, -1)
@@ -110,7 +116,7 @@ func _process(delta):
 				directionPlayer = global_position - player.global_position
 				#print(directionPlayer)
 				
-			if player != null && (abs(directionPlayer.y) != 8 || abs(directionPlayer.x) != 8):
+			if player != null && (abs(directionPlayer.y) != 8 || abs(directionPlayer.x) != 8) && player.alive ==true:
 				var direction = global_position.direction_to(player.global_position).normalized()
 				velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
 			else:
@@ -125,6 +131,12 @@ func _process(delta):
 			knockBack = move_and_slide(knockBack)
 			current_state = pick_state([State.IDLE, State.WANDER])
 			wanderAI.start_timer(rand_range(1, 2))
+			if health <= 0:
+				current_state = State.DEAD
+		
+		State.DEAD:
+			death()
+			set_process(false)
 				
 	if sprite.flip_h == true:
 		hurtbox.get_node("CollisionShape2D").position = Vector2(-12, -1.5)
@@ -142,9 +154,10 @@ func seek_player():
 	if inRange == true:
 		current_state = State.ATTACK
 		
-	if playerdetection.see_player():
+	if playerdetection.see_player() && player.health >0 :
 		current_state = State.CHASE
 		#$AttackRange/Range.disabled = false
+	
 		
 func _on_Hitbox_area_entered(area):
 	if area.name == "AttackHitbox":
@@ -173,16 +186,28 @@ func getHit(area):
 	t.queue_free()
 	
 func death():
+	sprite.play("Dead")
 	var rand_x = rand_range(-10.0, 10.0)
 	var rand_y = rand_range(-5.0, 5.0)
 	coin_instance.global_position = global_position - Vector2(rand_x, rand_y)
+	player.increase_EXP(EXP)
 	get_tree().get_root().add_child(coin_instance)
+	var t = Timer.new()
+	t.set_wait_time(2)
+	t.set_one_shot(true)
+	self.add_child(t)
+	t.start()
+	yield(t, "timeout")
+	set_modulate(Color( 1, 1, 1, 1))
+	t.queue_free()
 	queue_free()
 
 func _on_AttackRange_area_entered(area):
-		if area.name == "PlayerHitBox":
+		if area.name == "PlayerHitBox" && player.health > 0:
 			inRange = true
 			#current_state = State.ATTACK
+		else:
+			inRange = false
 
 
 func _on_AttackRange_area_exited(area):
@@ -197,5 +222,6 @@ func initializeStats(baseStats):
 	speed = baseStats.speed
 	defense = baseStats.defense
 	attack = baseStats.attack
+	EXP = baseStats.EXP
 	hurtbox.damage = attack
 	

@@ -1,0 +1,57 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/UIicons/Tenacity.png" type="Texture" id=1]
+[ext_resource path="res://UI/Fonts/ferrum.otf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[node name="NinePatchRect" type="NinePatchRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.2, 0.2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -18.0439
+margin_top = -13.8281
+margin_right = 31.9561
+margin_bottom = 3.17194
+custom_fonts/font = SubResource( 1 )
+text = "Tenacity"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 200.0
+margin_bottom = 200.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="."]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 40.1189
+margin_top = -12.7873
+margin_right = 80.1189
+margin_bottom = 4.21266
+custom_fonts/font = SubResource( 2 )
+text = "1"
+__meta__ = {
+"_edit_use_anchors_": false
+}

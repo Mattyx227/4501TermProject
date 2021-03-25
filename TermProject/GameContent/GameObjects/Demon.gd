@@ -16,7 +16,7 @@ enum State{
 
 
 
-
+onready var player = $"../Player"
 export onready var starting_stats : Resource	= load("res://GameContent/GameObjects/Enemy/Stats/DemonStats.tres")
 
 onready var playerdetection = $Detection
@@ -38,6 +38,7 @@ onready var max_mana : int
 onready var attack : int
 onready var defense : int
 onready var speed : int
+onready var EXP : int
 
 func _ready():
 	print(hurtbox)
@@ -175,6 +176,7 @@ func death():
 	var rand_x = rand_range(-10.0, 10.0)
 	var rand_y = rand_range(-5.0, 5.0)
 	coin_instance.global_position = global_position - Vector2(rand_x, rand_y)
+	player.increase_EXP(EXP)
 	get_tree().get_root().add_child(coin_instance)
 	queue_free()
 
@@ -196,5 +198,6 @@ func initializeStats(baseStats):
 	speed = baseStats.speed
 	defense = baseStats.defense
 	attack = baseStats.attack
+	EXP = baseStats.EXP
 	hurtbox.damage = attack
 	

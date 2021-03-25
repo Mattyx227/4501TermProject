@@ -1,0 +1,110 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://UI/HealthBar/player-health-bar-over.png" type="Texture" id=1]
+[ext_resource path="res://UI/HealthBar/player-health-bar-health.png" type="Texture" id=2]
+[ext_resource path="res://UI/HealthBar/player-health-bar-under.png" type="Texture" id=3]
+[ext_resource path="res://UI/HealthBar/heart.png" type="Texture" id=4]
+[ext_resource path="res://UI/Fonts/lunchds.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://UI/HealthBar/ExpBar.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/DeadScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/HealthBar/PlayerHealthBar.gd" type="Script" id=8]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[node name="GUI" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 14.3231
+margin_top = 17.3259
+margin_right = -240.677
+margin_bottom = -151.674
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="."]
+margin_left = -12.7852
+margin_top = -16.4811
+margin_right = 32.2148
+margin_bottom = 2.51888
+custom_fonts/font = SubResource( 1 )
+text = "Lvl 1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HPease" type="TextureProgress" parent="."]
+margin_right = 65.0
+margin_bottom = 9.0
+value = 50.0
+texture_under = ExtResource( 3 )
+texture_over = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+tint_under = Color( 0.207843, 0.054902, 0.945098, 1 )
+tint_progress = Color( 1, 0.164706, 0, 1 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HP" type="TextureProgress" parent="."]
+margin_right = 65.0
+margin_bottom = 9.0
+value = 50.0
+texture_over = ExtResource( 1 )
+texture_progress = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="HPtext" type="Label" parent="HP"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 10.0496
+margin_top = 4.02136
+margin_right = 75.0496
+margin_bottom = 18.0214
+rect_scale = Vector2( 0.35, 0.3 )
+text = "10/20"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Icon" type="Sprite" parent="."]
+position = Vector2( -7.49153, 4.49492 )
+scale = Vector2( 0.05, 0.05 )
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ExpBar" parent="." instance=ExtResource( 6 )]
+margin_left = -6.09331
+margin_top = -17.8911
+margin_right = -6.09331
+margin_bottom = -17.8911
+
+[node name="DeadScreen" parent="." instance=ExtResource( 7 )]
+margin_left = -9.2001
+margin_top = -10.1091
+margin_right = 238.8
+margin_bottom = 161.891
+
+[node name="dead" parent="DeadScreen" index="0"]
+visible = true
+
+[node name="Label" parent="DeadScreen" index="1"]
+visible = true
+
+[node name="RespawnButton" parent="DeadScreen" index="2"]
+visible = true
+[connection signal="button_up" from="DeadScreen/RespawnButton" to="." method="_on_RespawnButton_button_up"]
+
+[editable path="DeadScreen"]
